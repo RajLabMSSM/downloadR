@@ -18,6 +18,10 @@ if(!"remotes" %in% rownames(installed.packages())){install.packages("remotes")}
 remotes::install_github("RajLabMSSM/downloadR")
 ```
 
+## [Documentation website](https://rajlabmssm.github.io/downloadR/)
+
+## [Vignette](https://rajlabmssm.github.io/downloadR/articles/downloadR)
+
 <hr>
 
 ## Creator
