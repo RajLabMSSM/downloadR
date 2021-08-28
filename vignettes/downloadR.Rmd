@@ -1,0 +1,59 @@
+---
+title: "downloadR: Getting Started" 
+author: "<h4>Author: <i>Brian M. Schilder</i></h4>" 
+date: "<h4>Most recent update: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
+output:
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+    df_print: paged
+vignette: >
+    %\VignetteIndexEntry{downloadR} 
+    %\usepackage[utf8]{inputenc}
+    %\VignetteEngine{knitr::rmarkdown} 
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup}
+library(downloadR) 
+```
+
+
+# Download file
+
+Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).
+
+```{r}
+rda_url <- "https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+out_path <- downloadR::downloader(input_url = rda_url,
+                                  download_method = "axel")
+
+BST1 <- downloadR::load_rdata(out_path)
+```
+
+
+# Download VCF
+
+More specialized downloading function for Variant Call Format (VCF) files that downloads both the VCF and its index file (if available).
+
+```{r}
+vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
+out_paths <- downloadR::download_vcf(vcf_url = vcf_url)
+```
+
+
+# Session Info 
+
+<details> 
+
+```{r Session Info}
+utils::sessionInfo()
+```
+
+</details>  
+
