@@ -3,3 +3,6 @@
 export(download_vcf)
 export(downloader)
 export(load_rdata)
+importFrom(methods,is)
+importFrom(utils,capture.output)
+importFrom(utils,download.file)

@@ -11,6 +11,6 @@ load_rdata(fileName)
 }
 \description{
 Load processed data (\emph{.rda} format) using a function that assigns it
-to a specific variable 
+to a specific variable
 (so you don't have to guess what the loaded variable name is).
 }

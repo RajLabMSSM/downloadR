@@ -7,11 +7,10 @@
 download_vcf(
   vcf_url,
   vcf_dir = tempdir(),
-  vcf_download = TRUE,
   download_method = "download.file",
   force_new = FALSE,
   quiet = TRUE,
-  nThread = 1
+  nThread = parallel::detectCores() - 1
 )
 }
 \arguments{

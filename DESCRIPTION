@@ -30,8 +30,10 @@ biocViews:
 Imports: 
     echoconda, 
     utils, 
+    methods,
     parallel
 Suggests:
+    rmarkdown,
     remotes,
     knitr,
     testthat (>= 3.0.0)

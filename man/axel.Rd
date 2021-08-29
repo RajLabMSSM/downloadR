@@ -32,6 +32,8 @@ axel(
 \item{alternate}{alternate,}
 
 \item{check_certificates}{check_certificates}
+
+\item{conda_env}{Conda environment to use.}
 }
 \value{
 Path where the file has been downloaded

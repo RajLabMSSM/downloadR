@@ -19,31 +19,45 @@
 #' @param check_certificates check_certificates
 #' @param timeout How many seconds before giving up on download.
 #' Passed to \code{download.file}. Default: \code{30*60} (30min).
+#' @param conda_env Conda environment to use.
 #' @family downloaders
 #'
+#' @examples
+#' rda_url<-"https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+#' out_path <- downloadR::downloader(
+#'     input_url = rda_url,
+#'     download_method = "axel"
+#' )
 #' @export
+#' @importFrom utils capture.output download.file
+#' @importFrom methods is
 downloader <- function(input_url,
-                       output_path=file.path(tempdir(),
-                                             basename(input_url)),
+                       output_path = file.path(
+                           tempdir(),
+                           basename(input_url)
+                       ),
                        download_method = "axel",
                        background = FALSE,
                        force_overwrite = FALSE,
                        quiet = TRUE,
                        show_progress = TRUE,
                        continue = TRUE,
-                       nThread = parallel::detectCores()-1,
+                       nThread = parallel::detectCores() - 1,
                        alternate = TRUE,
                        check_certificates = TRUE,
                        # conda_env=NULL,
-                       timeout = 30 * 60) {
-    
+                       timeout = 30 * 60,
+                       conda_env = "echoR") {
     start <- Sys.time()
     #### axel ####
     if (download_method == "axel") {
         axel_avail <- length(system("which axel", intern = TRUE)) != 0
-        if (axel_avail
-            # | !is.null(conda_env)
-        ) {
+        axel_conda <- echoconda::find_package(
+            package = "axel",
+            conda_env = conda_env,
+            verbose = FALSE
+        )
+        if (axel_avail | (axel_conda != "axel")) {
             out_file <- axel(
                 input_url = input_url,
                 output_path = output_path,
@@ -52,7 +66,7 @@ downloader <- function(input_url,
                 force_overwrite = force_overwrite,
                 quiet = quiet, # output is hella long otherwise...
                 alternate = alternate,
-                # conda_env=conda_env,
+                conda_env = conda_env,
                 check_certificates = check_certificates
             )
             if (!file.exists(out_file)) {
@@ -72,7 +86,12 @@ downloader <- function(input_url,
     #### wget ####
     if (download_method == "wget") {
         wget_avail <- length(system("which wget", intern = TRUE)) != 0
-        if (wget_avail | !is.null(conda_env)) {
+        wget_conda <- echoconda::find_package(
+            package = "wget",
+            conda_env = conda_env,
+            verbose = FALSE
+        )
+        if (wget_avail | (wget_conda != "wget")) {
             out_file <- wget(input_url,
                 output_path,
                 background = background,
@@ -100,11 +119,12 @@ downloader <- function(input_url,
             "\nThis is likely caused by inputting an ID which ",
             "couldn't be found. Check this and the URL."
         )
-        if (is(catch_fail, "error") | is(catch_fail, "warning")) {
+        if (methods::is(catch_fail, "error") |
+            methods::is(catch_fail, "warning")) {
             stop(msg)
         }
     }
     #### Report time ####
-    message(capture.output(difftime(Sys.time(),start)))
+    message(utils::capture.output(difftime(Sys.time(), start)))
     return(out_file)
 }

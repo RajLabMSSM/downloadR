@@ -19,7 +19,7 @@ axel <- function(input_url,
                  # conda_env=NULL,
                  check_certificates = FALSE,
                  conda_env = "echoR") {
-    message("Downloading with axel (using ",nThread," cores).")
+    message("Downloading with axel (using ", nThread, " cores).")
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
     out_file <- file.path(output_path, basename(input_url))
     if (force_overwrite) {

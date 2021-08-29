@@ -16,7 +16,8 @@ downloader(
   nThread = parallel::detectCores() - 1,
   alternate = TRUE,
   check_certificates = TRUE,
-  timeout = 30 * 60
+  timeout = 30 * 60,
+  conda_env = "echoR"
 )
 }
 \arguments{
@@ -45,6 +46,8 @@ downloader(
 
 \item{timeout}{How many seconds before giving up on download.
 Passed to \code{download.file}. Default: \code{30*60} (30min).}
+
+\item{conda_env}{Conda environment to use.}
 }
 \value{
 Local path to downloaded file.
@@ -52,6 +55,13 @@ Local path to downloaded file.
 \description{
 R wrapper for \code{"axel"} (multi-threaded) and
  \code{"download.file"} (single-threaded) download functions.
+}
+\examples{
+rda_url<-"https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+out_path <- downloadR::downloader(
+    input_url = rda_url,
+    download_method = "axel"
+)
 }
 \seealso{
 Other downloaders: 

@@ -12,11 +12,11 @@
 #' out_paths <- download_vcf(vcf_url = vcf_url)
 download_vcf <- function(vcf_url,
                          vcf_dir = tempdir(),
-                         vcf_download = TRUE,
                          download_method = "download.file",
                          force_new = FALSE,
                          quiet = TRUE,
-                         nThread = 1) {
+                         nThread = parallel::detectCores() - 1) {
+    vcf_download <- TRUE
     #### Create save_path ####
     save_path <- file.path(vcf_dir, basename(vcf_url))
     index_path <- NULL
