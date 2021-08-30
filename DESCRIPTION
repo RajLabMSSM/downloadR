@@ -28,14 +28,14 @@ Depends: R (>= 3.6.0)
 SystemRequirements: Python (>= 3.7.0)
 biocViews:
 Imports:  
-    echoconda,
-    devtools,
+    echoconda, 
     utils, 
     methods,
     parallel
 Suggests:
     markdown,
     rmarkdown, 
+    remotes,
     knitr,
     BiocStyle,
     covr,
