@@ -18,7 +18,20 @@ download_vcf(
 
 \item{vcf_dir}{Where to download VCF file.}
 
-\item{download_method}{\code{"axel"} (multi-threaded) or
+\item{download_method}{\itemize{
+\item{\code{"axel"} : }{Multi-threaded}
+\item{\code{"wget"} : }{Single-threaded}
+\item{\code{"download.file"} : }{Single-threaded}
+\item{\code{"internal"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"wininet"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"libcurl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"curl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+}
+ or
 \code{"download.file"} (single-threaded) .}
 
 \item{force_new}{Overwrite a previously downloaded VCF with the same path name.}

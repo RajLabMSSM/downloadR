@@ -6,6 +6,7 @@
 #'
 #' @param fileName Name of the file to load.
 #'
+#' @return R object
 #' @export
 load_rdata <- function(fileName) {
     load(fileName)

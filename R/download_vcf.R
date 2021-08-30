@@ -4,7 +4,8 @@
 #'
 #' @param vcf_url Remote URL to VCF file.
 #' @param vcf_dir Where to download VCF file.
-#' @param force_new Overwrite a previously downloaded VCF with the same path name.
+#' @param force_new Overwrite a previously downloaded VCF 
+#' with the same path name.
 #' @inheritParams downloader
 #' @export
 #' @examples

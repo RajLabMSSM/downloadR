@@ -76,7 +76,7 @@ Author: <i>Brian M. Schilder</i>
 </h4></h4>
             
             <h4 class="date"><h4>
-Most recent update: <i>Aug-29-2021</i>
+Most recent update: <i>Aug-30-2021</i>
 </h4></h4>
       
       <small class="dont-index">Source: <a href="https://github.com/RajLabMSSM/downloadR/blob/master/vignettes/downloadR.Rmd"><code>vignettes/downloadR.Rmd</code></a></small>
@@ -98,7 +98,7 @@ Most recent update: <i>Aug-29-2021</i>
                                   download_method <span class="op">=</span> <span class="st">"axel"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Downloading with axel (using 11 cores).</code></pre>
 <pre><code>## + CONDA:: Identified axel executable in echoR env.</code></pre>
-<pre><code>## Time difference of 2.512842 secs</code></pre>
+<pre><code>## Time difference of 2.717356 secs</code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BST1</span> <span class="op">&lt;-</span> <span class="fu">downloadR</span><span class="fu">::</span><span class="fu"><a href="../reference/load_rdata.html">load_rdata</a></span><span class="op">(</span><span class="va">out_path</span><span class="op">)</span></code></pre></div>
 </div>
@@ -109,12 +109,12 @@ Most recent update: <i>Aug-29-2021</i>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vcf_url</span> <span class="op">&lt;-</span> <span class="st">"https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"</span>
 <span class="va">out_paths</span> <span class="op">&lt;-</span> <span class="fu">downloadR</span><span class="fu">::</span><span class="fu"><a href="../reference/download_vcf.html">download_vcf</a></span><span class="op">(</span>vcf_url <span class="op">=</span> <span class="va">vcf_url</span><span class="op">)</span></code></pre></div>
-<pre><code>## Downloading VCF ==&gt; /var/folders/zq/h7mtybc533b1qzkys_ttgpth0000gn/T//Rtmpwo235P/ieu-a-298.vcf.gz</code></pre>
+<pre><code>## Downloading VCF ==&gt; /var/folders/zq/h7mtybc533b1qzkys_ttgpth0000gn/T//RtmpVYiT6M/ieu-a-298.vcf.gz</code></pre>
 <pre><code>## Downloading with download.file.</code></pre>
-<pre><code>## Time difference of 0.2851219 secs</code></pre>
+<pre><code>## Time difference of 0.28791 secs</code></pre>
 <pre><code>## Downloading VCF index ==&gt; https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz.tbi</code></pre>
 <pre><code>## Downloading with download.file.</code></pre>
-<pre><code>## Time difference of 0.2102621 secs</code></pre>
+<pre><code>## Time difference of 0.2106071 secs</code></pre>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
@@ -146,14 +146,14 @@ Most recent update: <i>Aug-29-2021</i>
 ## [13] lattice_0.20-44     lifecycle_1.0.0     jsonlite_1.7.2     
 ## [16] evaluate_0.14       memoise_2.0.0       png_0.1-7          
 ## [19] rlang_0.4.11        Matrix_1.3-4        cli_3.0.1          
-## [22] rstudioapi_0.13     yaml_2.2.1          parallel_4.1.0     
+## [22] rstudioapi_0.13     parallel_4.1.0      yaml_2.2.1         
 ## [25] pkgdown_1.6.1       xfun_0.25           fastmap_1.1.0      
 ## [28] echoconda_0.99.0    withr_2.4.2         stringr_1.4.0      
 ## [31] knitr_1.33          desc_1.3.0          fs_1.5.0           
 ## [34] sass_0.4.0          systemfonts_1.0.2   devtools_2.4.2     
 ## [37] grid_4.1.0          rprojroot_2.0.2     reticulate_1.20    
 ## [40] glue_1.4.2          R6_2.5.1            textshaping_0.3.5  
-## [43] processx_3.5.2      rmarkdown_2.10      bookdown_0.22      
+## [43] processx_3.5.2      rmarkdown_2.10      bookdown_0.23      
 ## [46] sessioninfo_1.1.1   purrr_0.3.4         callr_3.7.0        
 ## [49] magrittr_2.0.1      usethis_2.0.1       ps_1.6.0           
 ## [52] htmltools_0.5.2     ellipsis_0.3.2      ragg_1.1.3         

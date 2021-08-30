@@ -17,9 +17,9 @@ axel(
 )
 }
 \arguments{
-\item{input_url}{input_url.}
+\item{input_url}{URL to remote file.}
 
-\item{output_path}{output_path.}
+\item{output_path}{The file name you want to save the download as.}
 
 \item{background}{Run in background}
 

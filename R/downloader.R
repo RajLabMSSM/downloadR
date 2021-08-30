@@ -5,9 +5,23 @@
 #'
 #' @return Local path to downloaded file.
 #'
-#' @param input_url input_url.
-#' @param output_path output_path.
-#' @param download_method \code{"axel"} (multi-threaded) or
+#' @param input_url URL to remote file.
+#' @param output_path The file name you want to save the download as.
+#' @param download_method 
+#' \itemize{
+#' \item{\code{"axel"} : }{Multi-threaded}
+#' \item{\code{"wget"} : }{Single-threaded}
+#' \item{\code{"download.file"} : }{Single-threaded}
+#' \item{\code{"internal"} : }{Single-threaded 
+#' (passed to \link[utils]{download.file})}
+#' \item{\code{"wininet"} : }{Single-threaded 
+#' (passed to \link[utils]{download.file})}
+#' \item{\code{"libcurl"} : }{Single-threaded 
+#' (passed to \link[utils]{download.file})}
+#' \item{\code{"curl"} : }{Single-threaded 
+#' (passed to \link[utils]{download.file})}
+#' }
+#'  or
 #' \code{"download.file"} (single-threaded) .
 #' @param background Run in background
 #' @param force_overwrite Overwrite existing file.
@@ -31,12 +45,21 @@
 #' @export
 #' @importFrom utils capture.output download.file
 #' @importFrom methods is
+#' @importFrom parallel detectCores
 downloader <- function(input_url,
                        output_path = file.path(
                            tempdir(),
                            basename(input_url)
                        ),
-                       download_method = "axel",
+                       download_method = c("axel",
+                                           "wget",
+                                           "download.file", 
+                                           "internal",
+                                           "wininet",
+                                           "libcurl", 
+                                           "wget",
+                                           "curl"
+                                           ),
                        background = FALSE,
                        force_overwrite = FALSE,
                        quiet = TRUE,
@@ -48,6 +71,24 @@ downloader <- function(input_url,
                        # conda_env=NULL,
                        timeout = 30 * 60,
                        conda_env = "echoR") {
+    
+    #### Check method ####
+    download_method <- tolower(download_method[1])
+    df_methods <- c("download.file", 
+                    "auto",
+                    "internal",
+                    "wininet",
+                    "libcurl",
+                    "curl")
+    if(!download_method %in% c("axel","wget",df_methods)){
+        msg <- paste0("download_method=",download_method," not recognized.\n",
+                      "Must be one of:\n",
+                      paste0(" - ",c("axel","wget","download.file"), collapse = "\n"))
+        message(msg)
+        message("Defaulting to download.file.")
+        download_method <- "download.file"
+    } 
+    
     start <- Sys.time()
     #### axel ####
     if (download_method == "axel") {
@@ -82,9 +123,9 @@ downloader <- function(input_url,
             message("Defaulting to download.file")
             download_method <- "download.file"
         }
-    }
+        
     #### wget ####
-    if (download_method == "wget") {
+    } else if (download_method == "wget") {
         wget_avail <- length(system("which wget", intern = TRUE)) != 0
         wget_conda <- echoconda::find_package(
             package = "wget",
@@ -92,8 +133,9 @@ downloader <- function(input_url,
             verbose = FALSE
         )
         if (wget_avail | (wget_conda != "wget")) {
-            out_file <- wget(input_url,
-                output_path,
+            out_file <- wget(
+                input_url = input_url,
+                output_path = output_path,
                 background = background,
                 force_overwrite = force_overwrite,
                 quiet = quiet,
@@ -103,26 +145,18 @@ downloader <- function(input_url,
                 conda_env = conda_env
             )
         } else {
-            stop("+ DOWNLOADER:: Please install wget or axel first.")
-        }
-    }
-    #### download.file ####
-    if (download_method == "download.file") {
-        message("Downloading with download.file.")
-        options(timeout = timeout)
-        out_file <- file.path(output_path, basename(input_url))
-        catch_fail <- tryCatch(utils::download.file(input_url, out_file),
-            error = function(e) e, warning = function(w) w
-        )
-        msg <- paste0(
-            "Failed to download from:\n", input_url,
-            "\nThis is likely caused by inputting an ID which ",
-            "couldn't be found. Check this and the URL."
-        )
-        if (methods::is(catch_fail, "error") |
-            methods::is(catch_fail, "warning")) {
-            stop(msg)
-        }
+            message("wget not available.\n",
+                     "Defaulting to download.file.")
+            download_method <- "download.file"
+        } 
+    } 
+     
+    #### download.file #### 
+    if (download_method %in% df_methods) {
+        out_file <- download_file(input_url = input_url, 
+                                  output_path = output_path, 
+                                  timeout = timeout,
+                                  quiet =  quiet)
     }
     #### Report time ####
     message(utils::capture.output(difftime(Sys.time(), start)))

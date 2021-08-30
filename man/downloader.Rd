@@ -7,7 +7,8 @@
 downloader(
   input_url,
   output_path = file.path(tempdir(), basename(input_url)),
-  download_method = "axel",
+  download_method = c("axel", "wget", "download.file", "internal", "wininet",
+    "libcurl", "wget", "curl"),
   background = FALSE,
   force_overwrite = FALSE,
   quiet = TRUE,
@@ -21,11 +22,24 @@ downloader(
 )
 }
 \arguments{
-\item{input_url}{input_url.}
+\item{input_url}{URL to remote file.}
 
-\item{output_path}{output_path.}
+\item{output_path}{The file name you want to save the download as.}
 
-\item{download_method}{\code{"axel"} (multi-threaded) or
+\item{download_method}{\itemize{
+\item{\code{"axel"} : }{Multi-threaded}
+\item{\code{"wget"} : }{Single-threaded}
+\item{\code{"download.file"} : }{Single-threaded}
+\item{\code{"internal"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"wininet"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"libcurl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"curl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+}
+ or
 \code{"download.file"} (single-threaded) .}
 
 \item{background}{Run in background}
