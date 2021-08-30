@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         env:
           R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-        run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "options(timeout=600)" -e "remotes::install_deps(dependencies = TRUE)"
+        run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "options(timeout=600)" -e "remotes::install_github('RajLabMSSM/echoconda', auth_token='${{secrets.PAT_GITHUB}}')" -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
         run: Rscript -e "rcmdcheck::rcmdcheck(error_on = 'error')"
       - name: Test coverage
