@@ -41,7 +41,7 @@ Suggests:
     covr,
     testthat (>= 3.0.0)
 Remotes:
-    github::RajLabMSSM/echoconda
+    github::RajLabMSSM/echoconda@HEAD
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 License: GPL (>= 3) + file LICENSE
