@@ -26,7 +26,7 @@ library(downloadR)
 
 # Download file
 
-Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).
+Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).  
 
 ```{r}
 rda_url <- "https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
