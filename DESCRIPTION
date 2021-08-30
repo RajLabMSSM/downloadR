@@ -27,11 +27,11 @@ LazyData: false
 Depends: R (>= 3.6.0)
 SystemRequirements: Python (>= 3.7.0)
 biocViews:
-Imports: 
-    echoconda, 
+Imports:  
     utils, 
     methods,
-    parallel
+    parallel,
+    echoconda
 Suggests:
     markdown,
     rmarkdown,

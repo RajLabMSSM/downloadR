@@ -16,6 +16,9 @@ wget(
   conda_env = "echoR"
 )
 }
+\value{
+Local path to downloaded file.
+}
 \description{
 R wrapper for wget
 }

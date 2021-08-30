@@ -1,6 +1,9 @@
 #' wget
 #'
 #' R wrapper for wget
+#' 
+#' @return Local path to downloaded file.
+#' 
 #' @family downloaders
 #' @keywords internal
 wget <- function(input_url,
