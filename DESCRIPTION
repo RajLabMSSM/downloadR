@@ -29,7 +29,7 @@ SystemRequirements: Python (>= 3.7.0)
 biocViews:
 Imports:  
     echoconda,
-    remotes,
+    devtools,
     utils, 
     methods,
     parallel
