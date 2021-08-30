@@ -9,6 +9,9 @@ load_rdata(fileName)
 \arguments{
 \item{fileName}{Name of the file to load.}
 }
+\value{
+R object
+}
 \description{
 Load processed data (\emph{.rda} format) using a function that assigns it
 to a specific variable

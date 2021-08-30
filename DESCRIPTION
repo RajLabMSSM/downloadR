@@ -33,9 +33,12 @@ Imports:
     methods,
     parallel
 Suggests:
+    markdown,
     rmarkdown,
     remotes,
     knitr,
+    BiocStyle,
+    covr,
     testthat (>= 3.0.0)
 Remotes:
     github::RajLabMSSM/echoconda

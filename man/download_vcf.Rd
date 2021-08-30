@@ -34,7 +34,8 @@ download_vcf(
  or
 \code{"download.file"} (single-threaded) .}
 
-\item{force_new}{Overwrite a previously downloaded VCF with the same path name.}
+\item{force_new}{Overwrite a previously downloaded VCF 
+with the same path name.}
 
 \item{quiet}{Run quietly.}
 
