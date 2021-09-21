@@ -18,7 +18,8 @@ downloader(
   alternate = TRUE,
   check_certificates = TRUE,
   timeout = 30 * 60,
-  conda_env = "echoR"
+  conda_env = "echoR",
+  verbose = TRUE
 )
 }
 \arguments{
@@ -62,6 +63,8 @@ downloader(
 Passed to \code{download.file}. Default: \code{30*60} (30min).}
 
 \item{conda_env}{Conda environment to use.}
+
+\item{verbose}{Print messages.}
 }
 \value{
 Local path to downloaded file.

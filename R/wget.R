@@ -6,6 +6,7 @@
 #' 
 #' @family downloaders
 #' @keywords internal
+#' @importFrom echoconda find_package
 wget <- function(input_url,
                  output_path,
                  background = TRUE,
@@ -19,6 +20,7 @@ wget <- function(input_url,
     ## -bqc makes wget run in the background quietly
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
     out_file <- file.path(output_path, basename(input_url))
+    #### Find wget binary ####
     wget <- echoconda::find_package(
         package = "wget",
         conda_env = conda_env,

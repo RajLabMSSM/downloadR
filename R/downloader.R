@@ -34,6 +34,7 @@
 #' @param timeout How many seconds before giving up on download.
 #' Passed to \code{download.file}. Default: \code{30*60} (30min).
 #' @param conda_env Conda environment to use.
+#' @param verbose Print messages.
 #' @family downloaders
 #'
 #' @examples
@@ -70,7 +71,8 @@ downloader <- function(input_url,
                        check_certificates = TRUE,
                        # conda_env=NULL,
                        timeout = 30 * 60,
-                       conda_env = "echoR") {
+                       conda_env = "echoR",
+                       verbose=TRUE) {
     
     #### Check method ####
     download_method <- tolower(download_method[1])
@@ -84,20 +86,27 @@ downloader <- function(input_url,
         msg <- paste0("download_method=",download_method," not recognized.\n",
                       "Must be one of:\n",
                       paste0(" - ",c("axel","wget","download.file"), collapse = "\n"))
-        message(msg)
-        message("Defaulting to download.file.")
+        messager(msg,v=verbose)
+        messager("Defaulting to download.file.",v=verbose)
         download_method <- "download.file"
     } 
     
     start <- Sys.time()
     #### axel ####
     if (download_method == "axel") {
-        axel_avail <- length(system("which axel", intern = TRUE)) != 0
-        axel_conda <- echoconda::find_package(
-            package = "axel",
-            conda_env = conda_env,
-            verbose = FALSE
-        )
+        axel_avail <- is_installed(tool = "axel")
+        axel_conda <- ""
+        if(!axel_avail){
+            #### Install axel (and other tools) via conda ####
+            if(conda_env=="echoR"){
+                conda_env2 <- echoconda::env_from_yaml()
+            } 
+            axel_conda <- echoconda::find_package(
+                package = "axel",
+                conda_env = conda_env,
+                verbose = FALSE
+            )
+        } 
         if (axel_avail | (axel_conda != "axel")) {
             out_file <- axel(
                 input_url = input_url,
@@ -126,12 +135,19 @@ downloader <- function(input_url,
         
     #### wget ####
     } else if (download_method == "wget") {
-        wget_avail <- length(system("which wget", intern = TRUE)) != 0
-        wget_conda <- echoconda::find_package(
-            package = "wget",
-            conda_env = conda_env,
-            verbose = FALSE
-        )
+        wget_avail <- is_installed(tool = "wget")
+        wget_conda <- ""
+        if(!wget_avail){
+            #### Install axel (and other tools) via conda ####
+            if(conda_env=="echoR"){
+                conda_env2 <- echoconda::env_from_yaml()
+            } 
+            wget_conda <- echoconda::find_package(
+                package = "wget",
+                conda_env = conda_env,
+                verbose = FALSE
+            )
+        } 
         if (wget_avail | (wget_conda != "wget")) {
             out_file <- wget(
                 input_url = input_url,
@@ -159,6 +175,6 @@ downloader <- function(input_url,
                                   quiet =  quiet)
     }
     #### Report time ####
-    message(utils::capture.output(difftime(Sys.time(), start)))
+    report_time(start = start, v=verbose) 
     return(out_file)
 }

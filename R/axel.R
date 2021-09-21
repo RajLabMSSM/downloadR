@@ -26,11 +26,13 @@ axel <- function(input_url,
         message("+ Overwriting pre-existing file.")
         suppressWarnings(file.remove(out_file))
     }
+    #### Get axel binary ####
     axel <- echoconda::find_package(
         package = "axel",
         conda_env = conda_env,
         verbose = quiet
     )
+    #### Run axel ####
     cmd <- paste(
         axel,
         input_url,
