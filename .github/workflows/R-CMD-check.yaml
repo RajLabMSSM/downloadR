@@ -13,6 +13,9 @@ on:
 name: R-full
 
 jobs:
+  env:
+    R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+    GITHUB_PAT: ${{ secrets.PAT_GITHUB }}
   macOS:
     runs-on: macOS-latest
     strategy:
@@ -28,10 +31,7 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@master
       - name: Install via brew
         run: brew install axel wget
-      - name: Install dependencies
-        env:
-          R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-          GITHUB_PAT: ${{ secrets.PAT_GITHUB }}
+      - name: Install dependencies 
         run: Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "options(timeout=600)" -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
         run: Rscript -e "rcmdcheck::rcmdcheck(error_on = 'error')"
