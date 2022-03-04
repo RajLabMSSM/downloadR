@@ -27,8 +27,8 @@ axel <- function(input_url,
         suppressWarnings(file.remove(out_file))
     }
     #### Get axel binary ####
-    axel <- echoconda::find_package(
-        package = "axel",
+    axel <- echoconda::find_packages(
+        packages = "axel",
         conda_env = conda_env,
         verbose = quiet
     )

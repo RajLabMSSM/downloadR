@@ -3,7 +3,7 @@
 export(download_vcf)
 export(downloader)
 export(load_rdata)
-importFrom(echoconda,find_package)
+importFrom(echoconda,find_packages)
 importFrom(methods,is)
 importFrom(parallel,detectCores)
 importFrom(utils,capture.output)

@@ -101,8 +101,8 @@ downloader <- function(input_url,
             if(conda_env=="echoR"){
                 conda_env2 <- echoconda::env_from_yaml()
             } 
-            axel_conda <- echoconda::find_package(
-                package = "axel",
+            axel_conda <- echoconda::find_packages(
+                packages = "axel",
                 conda_env = conda_env,
                 verbose = FALSE
             )
@@ -142,8 +142,8 @@ downloader <- function(input_url,
             if(conda_env=="echoR"){
                 conda_env2 <- echoconda::env_from_yaml()
             } 
-            wget_conda <- echoconda::find_package(
-                package = "wget",
+            wget_conda <- echoconda::find_packages(
+                packages = "wget",
                 conda_env = conda_env,
                 verbose = FALSE
             )
