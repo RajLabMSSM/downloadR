@@ -99,7 +99,7 @@ downloader <- function(input_url,
         if(!axel_avail){
             #### Install axel (and other tools) via conda ####
             if(conda_env=="echoR"){
-                conda_env2 <- echoconda::env_from_yaml()
+                conda_env2 <- echoconda::yaml_to_env()
             } 
             axel_conda <- echoconda::find_packages(
                 packages = "axel",
