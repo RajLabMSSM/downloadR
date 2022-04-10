@@ -23,7 +23,7 @@ axel <- function(input_url,
                  verbose = TRUE) { 
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
     out_file <- file.path(output_path, basename(input_url))
-    messager("Downloading with axel [",nThread,"thread(s)]:\n",
+    messager("Downloading with axel",paste0("[",nThread,"thread(s)]:"),"\n",
              input_url,"==>",out_file,
              v=verbose) 
     if (force_overwrite) {
