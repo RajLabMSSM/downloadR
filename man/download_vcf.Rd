@@ -30,9 +30,7 @@ download_vcf(
 (passed to \link[utils]{download.file})}
 \item{\code{"curl"} : }{Single-threaded 
 (passed to \link[utils]{download.file})}
-}
- or
-\code{"download.file"} (single-threaded) .}
+}}
 
 \item{force_new}{Overwrite a previously downloaded VCF 
 with the same path name.}

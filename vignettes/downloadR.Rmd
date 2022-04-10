@@ -1,22 +1,13 @@
 ---
-title: "downloadR: Getting Started" 
-author: "<h4>Author: <i>Brian M. Schilder</i></h4>" 
-date: "<h4>Most recent update: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
+title: "Getting Started" 
+author: "<h4>Authors: <i>`r auths <- eval(parse(text = gsub('person','c',read.dcf('../DESCRIPTION', fields = 'Authors@R'))));paste(auths[names(auths)=='given'],auths[names(auths)=='family'], collapse = ', ')`</i></h4>" 
+date: "<h4>Vignette updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
-  BiocStyle::html_document:
-    self_contained: yes
-    toc: true
-    toc_float: true
-    toc_depth: 3
-    code_folding: show
-    df_print: paged
+  BiocStyle::html_document
 vignette: >
-    %\VignetteIndexEntry{downloadR} 
+    %\VignetteIndexEntry{templateR} 
     %\usepackage[utf8]{inputenc}
-    %\VignetteEngine{knitr::rmarkdown} 
-editor_options: 
-  markdown: 
-    wrap: 72
+    %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup}
@@ -26,14 +17,26 @@ library(downloadR)
 
 # Download file
 
+## Multi-threaded  
+
 Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).  
 
 ```{r}
-rda_url <- "https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
-out_path <- downloadR::downloader(input_url = rda_url,
+input_url <- "https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+out_path <- downloadR::downloader(input_url = input_url,
                                   download_method = "axel")
 
-BST1 <- downloadR::load_rdata(out_path)
+dat <- downloadR::load_rdata(out_path)
+```
+
+## Single-threaded
+
+
+```{r}
+out_path <- downloadR::downloader(input_url = input_url,
+                                  download_method = "wget")
+
+dat <- downloadR::load_rdata(out_path)
 ```
 
 

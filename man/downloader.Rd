@@ -8,7 +8,7 @@ downloader(
   input_url,
   output_path = file.path(tempdir(), basename(input_url)),
   download_method = c("axel", "wget", "download.file", "internal", "wininet",
-    "libcurl", "wget", "curl"),
+    "libcurl", "curl"),
   background = FALSE,
   force_overwrite = FALSE,
   quiet = TRUE,
@@ -39,9 +39,7 @@ downloader(
 (passed to \link[utils]{download.file})}
 \item{\code{"curl"} : }{Single-threaded 
 (passed to \link[utils]{download.file})}
-}
- or
-\code{"download.file"} (single-threaded) .}
+}}
 
 \item{background}{Run in background}
 
@@ -74,11 +72,12 @@ R wrapper for \code{"axel"} (multi-threaded) and
  \code{"download.file"} (single-threaded) download functions.
 }
 \examples{
-rda_url<-"https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+input_url <- paste(
+    "https://github.com/RajLabMSSM/echolocatoR",
+    "raw/master/data/BST1.rda", sep="/")
+    
 out_path <- downloadR::downloader(
-    input_url = rda_url,
-    download_method = "axel"
-)
+    input_url = input_url)
 }
 \seealso{
 Other downloaders: 

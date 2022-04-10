@@ -7,13 +7,15 @@
 wget(
   input_url,
   output_path,
+  wget_path = "wget",
   background = TRUE,
   force_overwrite = FALSE,
   quiet = FALSE,
   show_progress = TRUE,
   continue = TRUE,
   check_certificates = FALSE,
-  conda_env = "echoR"
+  conda_env = "echoR",
+  verbose = TRUE
 )
 }
 \value{

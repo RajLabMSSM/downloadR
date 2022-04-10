@@ -7,13 +7,15 @@
 axel(
   input_url,
   output_path,
+  axel_path = "axel",
   background = FALSE,
   nThread = 1,
   force_overwrite = FALSE,
   quiet = TRUE,
   alternate = TRUE,
   check_certificates = FALSE,
-  conda_env = "echoR"
+  conda_env = "echoR",
+  verbose = TRUE
 )
 }
 \arguments{
@@ -34,6 +36,8 @@ axel(
 \item{check_certificates}{check_certificates}
 
 \item{conda_env}{Conda environment to use.}
+
+\item{verbose}{Print messages.}
 }
 \value{
 Path where the file has been downloaded

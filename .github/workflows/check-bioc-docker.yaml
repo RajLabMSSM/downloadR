@@ -35,13 +35,13 @@ name: R-CMD-check-bioc
 ## "/nocache" in the commit message.
 env:
   run_bioccheck: 'false'
-  run_crancheck: 'false'
+  run_crancheck: 'true'
   has_testthat: 'true'
   run_covr: 'true'
   run_pkgdown: 'true'
   has_RUnit: 'false'
   cache-version: 'cache-v1'
-  run_docker: 'true'
+  run_docker: 'false'
 
 jobs:
   R-CMD-check:

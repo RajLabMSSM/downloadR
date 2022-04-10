@@ -8,11 +8,12 @@ download_file <- function(input_url,
                                      "wget",
                                      "curl"),
                           timeout=30 * 60,
-                          quiet=FALSE){
+                          quiet=FALSE,
+                          verbose=TRUE){
     
     method <- method[1]
     if(method=="download.file") method <- "auto"
-    message("Downloading with download.file.")
+    messager("Downloading with download.file.",v=verbose)
     options(timeout = timeout)
     ### Set up paths ####
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)

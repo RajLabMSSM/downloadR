@@ -1,3 +1,18 @@
+# downloadR 0.99.3
+
+## New features
+
+* New check functions:
+    + `downloader_check_method`
+    + `check_avail`
+* Optionally tool executable paths to `axel` and `wget`, to reduce the number
+of times `echoconda::find_packages` is run. 
+
+## Bug fixes
+
+* Fix `echoconda::find_packages` (now that this returns a data.table).
+
+
 # downloadR 0.99.2
 
 ## Bug fixes

@@ -20,9 +20,7 @@
 #' (passed to \link[utils]{download.file})}
 #' \item{\code{"curl"} : }{Single-threaded 
 #' (passed to \link[utils]{download.file})}
-#' }
-#'  or
-#' \code{"download.file"} (single-threaded) .
+#' } 
 #' @param background Run in background
 #' @param force_overwrite Overwrite existing file.
 #' @param quiet Run quietly.
@@ -38,11 +36,12 @@
 #' @family downloaders
 #'
 #' @examples
-#' rda_url<-"https://github.com/RajLabMSSM/echolocatoR/raw/master/data/BST1.rda"
+#' input_url <- paste(
+#'     "https://github.com/RajLabMSSM/echolocatoR",
+#'     "raw/master/data/BST1.rda", sep="/")
+#'     
 #' out_path <- downloadR::downloader(
-#'     input_url = rda_url,
-#'     download_method = "axel"
-#' )
+#'     input_url = input_url)
 #' @export
 #' @importFrom utils capture.output download.file
 #' @importFrom methods is
@@ -57,8 +56,7 @@ downloader <- function(input_url,
                                            "download.file", 
                                            "internal",
                                            "wininet",
-                                           "libcurl", 
-                                           "wget",
+                                           "libcurl",
                                            "curl"
                                            ),
                        background = FALSE,
@@ -74,43 +72,26 @@ downloader <- function(input_url,
                        conda_env = "echoR",
                        verbose=TRUE) {
     
-    #### Check method ####
-    download_method <- tolower(download_method[1])
-    df_methods <- c("download.file", 
-                    "auto",
-                    "internal",
-                    "wininet",
-                    "libcurl",
-                    "curl")
-    if(!download_method %in% c("axel","wget",df_methods)){
-        msg <- paste0("download_method=",download_method," not recognized.\n",
-                      "Must be one of:\n",
-                      paste0(" - ",c("axel","wget","download.file"), collapse = "\n"))
-        messager(msg,v=verbose)
-        messager("Defaulting to download.file.",v=verbose)
-        download_method <- "download.file"
-    } 
+    # echoverseTemplate:::source_all();
+    # echoverseTemplate:::args2vars(downloadR::downloader)
     
+    #### Check method ####
+    df_methods <- eval(formals(download_file)$method)
+    download_method <- downloader_check_method(
+        download_method = download_method, 
+        verbose = verbose
+    ) 
     start <- Sys.time()
-    #### axel ####
+    #### Use axel ####
     if (download_method == "axel") {
-        axel_avail <- is_installed(tool = "axel")
-        axel_conda <- ""
-        if(!axel_avail){
-            #### Install axel (and other tools) via conda ####
-            if(conda_env=="echoR"){
-                conda_env2 <- echoconda::yaml_to_env()
-            } 
-            axel_conda <- echoconda::find_packages(
-                packages = "axel",
-                conda_env = conda_env,
-                verbose = FALSE
-            )
-        } 
-        if (axel_avail | (axel_conda != "axel")) {
+        axel_path <- check_avail(tool = "axel",
+                                 conda_env = conda_env,
+                                 verbose = verbose)
+        if (!is.null(axel_path)) {
             out_file <- axel(
                 input_url = input_url,
                 output_path = output_path,
+                axel_path = axel_path,
                 background = background,
                 nThread = nThread,
                 force_overwrite = force_overwrite,
@@ -120,60 +101,56 @@ downloader <- function(input_url,
                 check_certificates = check_certificates
             )
             if (!file.exists(out_file)) {
-                message("axel download failed. Trying with download.file.")
+                messager("axel download failed. Trying with download.file.",
+                         v=verbose)
                 download_method <- "download.file"
             }
         } else {
-            message(
+            messager(
                 "axel not installed.\n",
-                "For Mac users, please install via brew in the command ",
-                "line (`brew install axel`)"
+                "For Mac users, please install via brew in the command",
+                "line (`brew install axel`)", v=verbose
             )
             message("Defaulting to download.file")
             download_method <- "download.file"
         }
         
-    #### wget ####
+    #### Use wget ####
     } else if (download_method == "wget") {
-        wget_avail <- is_installed(tool = "wget")
-        wget_conda <- ""
-        if(!wget_avail){
-            #### Install axel (and other tools) via conda ####
-            if(conda_env=="echoR"){
-                conda_env2 <- echoconda::env_from_yaml()
-            } 
-            wget_conda <- echoconda::find_packages(
-                packages = "wget",
-                conda_env = conda_env,
-                verbose = FALSE
-            )
-        } 
-        if (wget_avail | (wget_conda != "wget")) {
+        wget_path <- check_avail(tool = "axel",
+                                 conda_env = conda_env,
+                                 verbose = verbose)
+        if (!is.null(wget_path)) {
             out_file <- wget(
                 input_url = input_url,
                 output_path = output_path,
+                wget_path = wget_path,
                 background = background,
                 force_overwrite = force_overwrite,
                 quiet = quiet,
                 show_progress = show_progress,
                 continue = continue,
                 check_certificates = check_certificates,
-                conda_env = conda_env
+                conda_env = conda_env,
+                verbose = verbose
             )
         } else {
-            message("wget not available.\n",
-                     "Defaulting to download.file.")
+            messager("wget not available.\n",
+                     "Defaulting to download.file.", v=verbose)
             download_method <- "download.file"
         } 
-    } 
-     
-    #### download.file #### 
-    if (download_method %in% df_methods) {
+        
+    #### download.file ####  
+    } else if (download_method %in% df_methods) {
         out_file <- download_file(input_url = input_url, 
                                   output_path = output_path, 
                                   timeout = timeout,
-                                  quiet =  quiet)
-    }
+                                  quiet =  quiet, 
+                                  method = download_method,
+                                  verbose = verbose)
+    } else {
+        stop("No valid download_method could be identified.")
+    } 
     #### Report time ####
     report_time(start = start, v=verbose) 
     return(out_file)

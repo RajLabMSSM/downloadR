@@ -6,28 +6,23 @@
 #' 
 #' @family downloaders
 #' @keywords internal
-#' @importFrom echoconda find_packages
 wget <- function(input_url,
                  output_path,
+                 wget_path="wget",
                  background = TRUE,
                  force_overwrite = FALSE,
                  quiet = FALSE,
                  show_progress = TRUE,
                  continue = TRUE,
                  check_certificates = FALSE,
-                 conda_env = "echoR") {
+                 conda_env = "echoR",
+                 verbose = TRUE) {
     # https://stackoverflow.com/questions/21365251/how-to-run-wget-in-background-for-an-unattended-download-of-files
     ## -bqc makes wget run in the background quietly
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
-    out_file <- file.path(output_path, basename(input_url))
-    #### Find wget binary ####
-    wget <- echoconda::find_packages(
-        packages = "wget",
-        conda_env = conda_env,
-        verbose = quiet
-    )
+    out_file <- file.path(output_path, basename(input_url)) 
     cmd <- paste(
-        wget,
+        wget_path,
         input_url,
         "-np",
         ## Checking certificates can sometimes cause issues
@@ -38,8 +33,8 @@ wget <- function(input_url,
         if (show_progress) "--show-progress" else "",
         "-P", output_path,
         if (force_overwrite) "" else "--no-clobber"
-    )
-    # print(cmd)
-    system(paste(cmd, "&& echo '+ wget download complete.'"))
+    ) 
+    system(cmd)
+    messager("\nwget download complete.",v=verbose)
     return(out_file)
 }
