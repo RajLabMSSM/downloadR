@@ -20,10 +20,12 @@ axel <- function(input_url,
                  # conda_env=NULL,
                  check_certificates = FALSE,
                  conda_env = "echoR",
-                 verbose = TRUE) {
-    messager("Downloading with axel (using ", nThread, " cores).",v=verbose)
+                 verbose = TRUE) { 
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
     out_file <- file.path(output_path, basename(input_url))
+    messager("Downloading with axel [",nThread,"thread(s)]:\n",
+             input_url,"==>",out_file,
+             v=verbose) 
     if (force_overwrite) {
         messager("+ Overwriting pre-existing file.",v=verbose)
         suppressWarnings(file.remove(out_file))

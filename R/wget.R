@@ -21,6 +21,9 @@ wget <- function(input_url,
     ## -bqc makes wget run in the background quietly
     dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
     out_file <- file.path(output_path, basename(input_url)) 
+    messager("Downloading with axel [",1,"thread]:\n",
+             input_url,"==>",out_file,
+             v=verbose) 
     cmd <- paste(
         wget_path,
         input_url,
