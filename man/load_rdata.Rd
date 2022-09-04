@@ -28,6 +28,8 @@ load_rdata(fileName, ...)
 \item{\code{"curl"} : }{Single-threaded 
 (passed to \link[utils]{download.file})}
 }}
+    \item{\code{retry_method}}{Method to automatically 
+retry with when the selected \code{download_method} fails.}
     \item{\code{background}}{Run in background}
     \item{\code{force_overwrite}}{Overwrite existing file.}
     \item{\code{quiet}}{Run quietly.}

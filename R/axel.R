@@ -23,7 +23,7 @@ axel <- function(input_url,
                  verbose = TRUE) { 
     
     dir.create(dirname(output_path), showWarnings = FALSE, recursive = TRUE) 
-    messager("Downloading with axel",paste0("[",nThread,"thread(s)]:"),
+    messager("Downloading with axel",paste0("[",nThread," thread(s)]:"),
              input_url,"==>",output_path,
              v=verbose) 
     if (force_overwrite) {
@@ -43,7 +43,6 @@ axel <- function(input_url,
         # ifelse(alternate,"-a",""),
         if (background) "& bg" else ""
     ) 
-    system(cmd)
-    messager("\naxel download complete.",v=verbose)
+    system(cmd) 
     return(output_path)
 }

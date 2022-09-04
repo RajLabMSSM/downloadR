@@ -5,6 +5,8 @@
 * Default is now `nThread=1`.
 * Ensure existing files get sent back immediately. 
 * `load_rdata`: Extend to local/remote rda/rds files. 
+* `validate_file`: New function to validate file presence and size. 
+* `downloader`: New arg `retry_method`.
 
 ## Bug fixes
 

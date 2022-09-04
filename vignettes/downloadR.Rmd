@@ -24,7 +24,9 @@ Generic function for downloading files with a variety of methods, including mult
 ```{r}
 input_url <- "https://github.com/RajLabMSSM/Fine_Mapping/raw/master/Data/lead.SNP.coords.csv"
 out_path <- downloadR::downloader(input_url = input_url,
-                                  download_method = "axel")
+                                  download_method = "axel",
+                                  ### Set nThread >1 in practice 
+                                  nThread = 1)
 csv <- utils::read.csv(out_path)
 knitr::kable(head(csv))
 ```
@@ -33,7 +35,8 @@ knitr::kable(head(csv))
 
 ```{r}
 out_path <- downloadR::downloader(input_url = input_url,
-                                  download_method = "wget")
+                                  download_method = "wget",
+                                  force_overwrite = TRUE)
 csv <- utils::read.csv(out_path) 
 ```
 

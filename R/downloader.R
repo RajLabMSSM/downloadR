@@ -22,6 +22,8 @@
 #' \item{\code{"curl"} : }{Single-threaded 
 #' (passed to \link[utils]{download.file})}
 #' } 
+#' @param retry_method Method to automatically 
+#' retry with when the selected \code{download_method} fails.
 #' @param background Run in background
 #' @param force_overwrite Overwrite existing file.
 #' @param quiet Run quietly.
@@ -58,6 +60,7 @@ downloader <- function(input_url,
                                            "libcurl",
                                            "curl"
                                            ),
+                       retry_method = "download.file",
                        background = FALSE,
                        force_overwrite = FALSE,
                        quiet = TRUE,
@@ -105,11 +108,15 @@ downloader <- function(input_url,
                 alternate = alternate,
                 conda_env = conda_env,
                 check_certificates = check_certificates
-            )
-            if (!file.exists(output_path)) {
-                messager("axel download failed. Trying with download.file.",
-                         v=verbose)
-                download_method <- "download.file"
+            ) 
+            download_method <- validate_file(output_path = output_path, 
+                                             download_method = download_method,
+                                             retry_method = retry_method,
+                                             verbose = verbose)
+            #### Exit early ####
+            if(is.null(download_method)) {
+                report_time(start = start, v=verbose) 
+                return(output_path)
             }
         } else {
             messager(
@@ -140,23 +147,36 @@ downloader <- function(input_url,
                 conda_env = conda_env,
                 verbose = verbose
             )
+            download_method <- validate_file(output_path = output_path,   
+                                             download_method = download_method,
+                                             retry_method = retry_method,
+                                             verbose = verbose)
+            #### Exit early ####
+            if(is.null(download_method)) {
+                report_time(start = start, v=verbose) 
+                return(output_path)
+            }
         } else {
             messager("wget not available.\n",
                      "Defaulting to download.file.", v=verbose)
             download_method <- "download.file"
-        } 
-        
-    #### download.file ####  
-    } else if (download_method %in% df_methods) {
-        output_path <- download_file(input_url = input_url, 
-                                  output_path = output_path, 
-                                  timeout = timeout,
-                                  quiet =  quiet, 
-                                  method = download_method,
-                                  verbose = verbose)
-    } else {
-        stop("No valid download_method could be identified.")
+        }    
     } 
+    #### download.file ####
+    ## Both used as an option and a backup method
+    if (download_method %in% df_methods) {
+        output_path <- download_file(input_url = input_url, 
+                                     output_path = output_path, 
+                                     timeout = timeout,
+                                     quiet = quiet, 
+                                     method = download_method,
+                                     verbose = verbose)
+        download_method <- validate_file(output_path = output_path,   
+                                         download_method = download_method,
+                                         error = TRUE,
+                                         retry_method = NULL,
+                                         verbose = verbose)
+    }
     #### Report time ####
     report_time(start = start, v=verbose) 
     return(output_path)

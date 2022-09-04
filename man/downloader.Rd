@@ -10,6 +10,7 @@ downloader(
   output_path = file.path(output_dir, basename(input_url)),
   download_method = c("axel", "wget", "download.file", "internal", "wininet", "libcurl",
     "curl"),
+  retry_method = "download.file",
   background = FALSE,
   force_overwrite = FALSE,
   quiet = TRUE,
@@ -43,6 +44,9 @@ downloader(
 \item{\code{"curl"} : }{Single-threaded 
 (passed to \link[utils]{download.file})}
 }}
+
+\item{retry_method}{Method to automatically 
+retry with when the selected \code{download_method} fails.}
 
 \item{background}{Run in background}
 
