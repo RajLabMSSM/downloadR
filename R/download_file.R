@@ -16,10 +16,9 @@ download_file <- function(input_url,
     messager("Downloading with download.file.",v=verbose)
     options(timeout = timeout)
     ### Set up paths ####
-    dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
-    out_file <- file.path(output_path, basename(input_url))
+    dir.create(dirname(output_path), showWarnings = FALSE, recursive = TRUE) 
     utils::download.file(url = input_url, 
-                         destfile = out_file,
+                         destfile = output_path,
                          quiet = quiet, 
                          method =  method)
     #### Download ####
@@ -38,5 +37,5 @@ download_file <- function(input_url,
     #     methods::is(catch_fail, "warning")) {
     #     stop(msg)
     # }
-    return(out_file)
+    return(output_path)
 }

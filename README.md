@@ -10,7 +10,7 @@ status](https://github.com/RajLabMSSM/downloadR/workflows/R-CMD-check-bioc/badge
 Author: <i>Brian M. Schilder</i>
 </h5>
 <h5>
-README updated: <i>Apr-10-2022</i>
+README updated: <i>Sep-04-2022</i>
 </h5>
 
 ## `downloadR`: Single- and multi-threaded downloading functions.
@@ -20,10 +20,6 @@ This R package is part of the *echoverse* suite that supports
 genomic fine-mapping pipeline.
 
 If you use `downloadR`, please cite:
-
-> Brian Schilder, Jack Humphrey and Towfique Raj (NA). downloadR:
-> echoverse module: Single- and multi-threaded downloading functions. R
-> package version 0.99.2. <https://github.com/RajLabMSSM/downloadR>
 
 ## Installation
 

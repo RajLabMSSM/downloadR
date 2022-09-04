@@ -3,19 +3,35 @@
 #' Load processed data (\emph{.rda} format) using a function that assigns it
 #' to a specific variable
 #' (so you don't have to guess what the loaded variable name is).
-#'
+#' If a \emph{.rda} file is remote and , it will first be downloaded using 
+#' \link[downloadR]{downloader}.
 #' @param fileName Name of the file to load.
-#'
-#' @return R object
+#' @inheritDotParams downloader 
+#' @returns R object
 #' 
-#' @examples
-#' rda_url <- file.path("https://github.com/RajLabMSSM/echolocatoR",
-#'                      "raw/master/data/BST1.rda")
-#' out_path <- downloadR::downloader(input_url = rda_url,
-#'                                   download_method = "axel")
-#' BST1 <- downloadR::load_rdata(out_path)
 #' @export
-load_rdata <- function(fileName) {
-    load(fileName)
-    get(ls()[ls() != "fileName"])
+#' @examples
+#' fileName <- paste0("https://github.com/RajLabMSSM/",
+#' "Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
+#' dat <- load_rdata(fileName)
+load_rdata <- function(fileName,
+                       ...) { 
+    
+    if(grepl("\\.rds",fileName,ignore.case = TRUE)){
+        if(!file.exists(fileName)){
+            fileName <- url(fileName)
+        }
+        obj <- readRDS(fileName)
+    } else if(grepl("\\.rda|\\.rdata",fileName,ignore.case = TRUE)){
+        if(!file.exists(fileName)){
+            fileName <- downloader(input_url = fileName,
+                                   ...)
+        } 
+        load(fileName)
+        obj <- get(ls()[ls() != "fileName"])
+    } else {
+        stp <- "File must be .rda/.rdata or .rds format."
+        stop(stp)
+    }
+    return(obj)
 }

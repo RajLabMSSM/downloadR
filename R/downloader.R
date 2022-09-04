@@ -6,6 +6,7 @@
 #' @return Local path to downloaded file.
 #'
 #' @param input_url URL to remote file.
+#' @param output_dir The file directory you want to save the download in.
 #' @param output_path The file name you want to save the download as.
 #' @param download_method 
 #' \itemize{
@@ -35,20 +36,18 @@
 #' @param verbose Print messages.
 #' @family downloaders
 #'
-#' @examples
-#' input_url <- paste(
-#'     "https://github.com/RajLabMSSM/echolocatoR",
-#'     "raw/master/data/BST1.rda", sep="/")
-#'     
-#' out_path <- downloadR::downloader(
-#'     input_url = input_url)
 #' @export
 #' @importFrom utils capture.output download.file
-#' @importFrom methods is
-#' @importFrom parallel detectCores
+#' @importFrom methods is 
+#' @examples
+#' input_url <- paste(
+#'     "https://github.com/RajLabMSSM/Fine_Mapping",
+#'     "raw/master/Data/lead.SNP.coords.csv", sep="/")
+#' out_path <- downloadR::downloader(input_url = input_url)
 downloader <- function(input_url,
+                       output_dir = tempdir(),
                        output_path = file.path(
-                           tempdir(),
+                           output_dir,
                            basename(input_url)
                        ),
                        download_method = c("axel",
@@ -63,18 +62,25 @@ downloader <- function(input_url,
                        force_overwrite = FALSE,
                        quiet = TRUE,
                        show_progress = TRUE,
-                       continue = TRUE,
-                       nThread = parallel::detectCores() - 1,
+                       continue = TRUE, 
                        alternate = TRUE,
                        check_certificates = TRUE,
                        # conda_env=NULL,
-                       timeout = 30 * 60,
+                       timeout = 5*60,
                        conda_env = "echoR",
+                       nThread = 1,
                        verbose=TRUE) {
     
     # echoverseTemplate:::source_all();
     # echoverseTemplate:::args2vars(downloadR::downloader)
     
+    #### Check if it already exists ####
+    if(file.exists(output_path) && 
+       isFALSE(force_overwrite)){
+        messager("Preexisting file detected.",
+                 "Set force_overwrite=TRUE to override this.",v=verbose)
+        return(output_path)
+    }
     #### Check method ####
     df_methods <- eval(formals(download_file)$method)
     download_method <- downloader_check_method(
@@ -88,7 +94,7 @@ downloader <- function(input_url,
                                  conda_env = conda_env,
                                  verbose = verbose)
         if (!is.null(axel_path)) {
-            out_file <- axel(
+            output_path <- axel(
                 input_url = input_url,
                 output_path = output_path,
                 axel_path = axel_path,
@@ -100,7 +106,7 @@ downloader <- function(input_url,
                 conda_env = conda_env,
                 check_certificates = check_certificates
             )
-            if (!file.exists(out_file)) {
+            if (!file.exists(output_path)) {
                 messager("axel download failed. Trying with download.file.",
                          v=verbose)
                 download_method <- "download.file"
@@ -117,11 +123,11 @@ downloader <- function(input_url,
         
     #### Use wget ####
     } else if (download_method == "wget") {
-        wget_path <- check_avail(tool = "axel",
+        wget_path <- check_avail(tool = "wget",
                                  conda_env = conda_env,
                                  verbose = verbose)
         if (!is.null(wget_path)) {
-            out_file <- wget(
+            output_path <- wget(
                 input_url = input_url,
                 output_path = output_path,
                 wget_path = wget_path,
@@ -142,7 +148,7 @@ downloader <- function(input_url,
         
     #### download.file ####  
     } else if (download_method %in% df_methods) {
-        out_file <- download_file(input_url = input_url, 
+        output_path <- download_file(input_url = input_url, 
                                   output_path = output_path, 
                                   timeout = timeout,
                                   quiet =  quiet, 
@@ -153,5 +159,5 @@ downloader <- function(input_url,
     } 
     #### Report time ####
     report_time(start = start, v=verbose) 
-    return(out_file)
+    return(output_path)
 }

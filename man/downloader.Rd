@@ -6,24 +6,27 @@
 \usage{
 downloader(
   input_url,
-  output_path = file.path(tempdir(), basename(input_url)),
-  download_method = c("axel", "wget", "download.file", "internal", "wininet",
-    "libcurl", "curl"),
+  output_dir = tempdir(),
+  output_path = file.path(output_dir, basename(input_url)),
+  download_method = c("axel", "wget", "download.file", "internal", "wininet", "libcurl",
+    "curl"),
   background = FALSE,
   force_overwrite = FALSE,
   quiet = TRUE,
   show_progress = TRUE,
   continue = TRUE,
-  nThread = parallel::detectCores() - 1,
   alternate = TRUE,
   check_certificates = TRUE,
-  timeout = 30 * 60,
+  timeout = 5 * 60,
   conda_env = "echoR",
+  nThread = 1,
   verbose = TRUE
 )
 }
 \arguments{
 \item{input_url}{URL to remote file.}
+
+\item{output_dir}{The file directory you want to save the download in.}
 
 \item{output_path}{The file name you want to save the download as.}
 
@@ -51,8 +54,6 @@ downloader(
 
 \item{continue}{continue.}
 
-\item{nThread}{Number of threads to parallelize over.}
-
 \item{alternate}{alternate,}
 
 \item{check_certificates}{check_certificates}
@@ -61,6 +62,8 @@ downloader(
 Passed to \code{download.file}. Default: \code{30*60} (30min).}
 
 \item{conda_env}{Conda environment to use.}
+
+\item{nThread}{Number of threads to parallelize over.}
 
 \item{verbose}{Print messages.}
 }
@@ -73,11 +76,9 @@ R wrapper for \code{"axel"} (multi-threaded) and
 }
 \examples{
 input_url <- paste(
-    "https://github.com/RajLabMSSM/echolocatoR",
-    "raw/master/data/BST1.rda", sep="/")
-    
-out_path <- downloadR::downloader(
-    input_url = input_url)
+    "https://github.com/RajLabMSSM/Fine_Mapping",
+    "raw/master/Data/lead.SNP.coords.csv", sep="/")
+out_path <- downloadR::downloader(input_url = input_url)
 }
 \seealso{
 Other downloaders: 

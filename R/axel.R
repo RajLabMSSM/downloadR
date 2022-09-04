@@ -12,23 +12,23 @@
 axel <- function(input_url,
                  output_path,
                  axel_path="axel",
-                 background = FALSE,
-                 nThread = 1,
+                 background = FALSE, 
                  force_overwrite = FALSE,
                  quiet = TRUE,
                  alternate = TRUE,
                  # conda_env=NULL,
                  check_certificates = FALSE,
                  conda_env = "echoR",
+                 nThread = 1,
                  verbose = TRUE) { 
-    dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
-    out_file <- file.path(output_path, basename(input_url))
-    messager("Downloading with axel",paste0("[",nThread,"thread(s)]:"),"\n",
-             input_url,"==>",out_file,
+    
+    dir.create(dirname(output_path), showWarnings = FALSE, recursive = TRUE) 
+    messager("Downloading with axel",paste0("[",nThread,"thread(s)]:"),
+             input_url,"==>",output_path,
              v=verbose) 
     if (force_overwrite) {
         messager("+ Overwriting pre-existing file.",v=verbose)
-        suppressWarnings(file.remove(out_file))
+        suppressWarnings(file.remove(output_path))
     } 
     #### Run axel ####
     cmd <- paste(
@@ -38,12 +38,12 @@ axel <- function(input_url,
         ## Checking certificates can sometimes cause issues
         if (check_certificates) "" else "--insecure",
         if (force_overwrite) "" else "--no-clobber",
-        "-o", out_file,
+        "-o", output_path,
         if (quiet) "-q" else "",
         # ifelse(alternate,"-a",""),
         if (background) "& bg" else ""
     ) 
     system(cmd)
     messager("\naxel download complete.",v=verbose)
-    return(out_file)
+    return(output_path)
 }

@@ -7,6 +7,7 @@
 #' @param force_new Overwrite a previously downloaded VCF 
 #' with the same path name.
 #' @inheritParams downloader
+#' 
 #' @export
 #' @examples
 #' vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
@@ -16,13 +17,14 @@ download_vcf <- function(vcf_url,
                          download_method = "download.file",
                          force_new = FALSE,
                          quiet = TRUE,
-                         nThread = parallel::detectCores() - 1) {
+                         nThread = 1) {
     vcf_download <- TRUE
     #### Create save_path ####
     save_path <- file.path(vcf_dir, basename(vcf_url))
     index_path <- NULL
 
-    if (file.exists(save_path) && force_new == FALSE) {
+    if (file.exists(save_path) &&
+        force_new == FALSE) {
         message("Using previously downloaded VCF.")
         vcf_url <- save_path
     } else {
@@ -35,7 +37,7 @@ download_vcf <- function(vcf_url,
             #### Download main VCF file
             save_path <- downloader(
                 input_url = vcf_url,
-                output_path = vcf_dir,
+                output_path = save_path,
                 download_method = download_method,
                 force_overwrite = force_new,
                 quiet = quiet,
@@ -46,7 +48,7 @@ download_vcf <- function(vcf_url,
             message("Downloading VCF index ==> ", index_url)
             index_path <- downloader(
                 input_url = index_url,
-                output_path = vcf_dir,
+                output_path = save_path,
                 download_method = download_method,
                 force_overwrite = force_new,
                 quiet = quiet,

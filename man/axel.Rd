@@ -9,12 +9,12 @@ axel(
   output_path,
   axel_path = "axel",
   background = FALSE,
-  nThread = 1,
   force_overwrite = FALSE,
   quiet = TRUE,
   alternate = TRUE,
   check_certificates = FALSE,
   conda_env = "echoR",
+  nThread = 1,
   verbose = TRUE
 )
 }
@@ -25,8 +25,6 @@ axel(
 
 \item{background}{Run in background}
 
-\item{nThread}{Number of threads to parallelize over.}
-
 \item{force_overwrite}{Overwrite existing file.}
 
 \item{quiet}{Run quietly.}
@@ -36,6 +34,8 @@ axel(
 \item{check_certificates}{check_certificates}
 
 \item{conda_env}{Conda environment to use.}
+
+\item{nThread}{Number of threads to parallelize over.}
 
 \item{verbose}{Print messages.}
 }

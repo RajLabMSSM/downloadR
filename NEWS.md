@@ -1,3 +1,17 @@
+# downloadR 0.99.4
+
+## New features
+
+* Default is now `nThread=1`.
+* Ensure existing files get sent back immediately. 
+* `load_rdata`: Extend to local/remote rda/rds files. 
+
+## Bug fixes
+
+* Reassign `output_path` to appropriate new arg `output_dir`.
+* Update README badges.
+
+
 # downloadR 0.99.3
 
 ## New features

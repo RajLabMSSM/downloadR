@@ -4,10 +4,43 @@
 \alias{load_rdata}
 \title{\code{load_rdata}}
 \usage{
-load_rdata(fileName)
+load_rdata(fileName, ...)
 }
 \arguments{
 \item{fileName}{Name of the file to load.}
+
+\item{...}{
+  Arguments passed on to \code{\link[=downloader]{downloader}}
+  \describe{
+    \item{\code{input_url}}{URL to remote file.}
+    \item{\code{output_dir}}{The file directory you want to save the download in.}
+    \item{\code{output_path}}{The file name you want to save the download as.}
+    \item{\code{download_method}}{\itemize{
+\item{\code{"axel"} : }{Multi-threaded}
+\item{\code{"wget"} : }{Single-threaded}
+\item{\code{"download.file"} : }{Single-threaded}
+\item{\code{"internal"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"wininet"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"libcurl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+\item{\code{"curl"} : }{Single-threaded 
+(passed to \link[utils]{download.file})}
+}}
+    \item{\code{background}}{Run in background}
+    \item{\code{force_overwrite}}{Overwrite existing file.}
+    \item{\code{quiet}}{Run quietly.}
+    \item{\code{show_progress}}{show_progress.}
+    \item{\code{continue}}{continue.}
+    \item{\code{nThread}}{Number of threads to parallelize over.}
+    \item{\code{alternate}}{alternate,}
+    \item{\code{check_certificates}}{check_certificates}
+    \item{\code{timeout}}{How many seconds before giving up on download.
+Passed to \code{download.file}. Default: \code{30*60} (30min).}
+    \item{\code{conda_env}}{Conda environment to use.}
+    \item{\code{verbose}}{Print messages.}
+  }}
 }
 \value{
 R object
@@ -16,11 +49,11 @@ R object
 Load processed data (\emph{.rda} format) using a function that assigns it
 to a specific variable
 (so you don't have to guess what the loaded variable name is).
+If a \emph{.rda} file is remote and , it will first be downloaded using 
+\link[downloadR]{downloader}.
 }
 \examples{
-rda_url <- file.path("https://github.com/RajLabMSSM/echolocatoR",
-                     "raw/master/data/BST1.rda")
-out_path <- downloadR::downloader(input_url = rda_url,
-                                  download_method = "axel")
-BST1 <- downloadR::load_rdata(out_path)
+fileName <- paste0("https://github.com/RajLabMSSM/",
+"Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
+dat <- load_rdata(fileName)
 }

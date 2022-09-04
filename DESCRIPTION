@@ -1,7 +1,7 @@
 Package: downloadR
 Type: Package
 Title: echoverse module: Single- and multi-threaded downloading functions
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: 
     c(person(given = "Brian",
            family = "Schilder",
@@ -23,15 +23,13 @@ Description: echoverse module: Single- and multi-threaded downloading functions.
 URL: https://github.com/RajLabMSSM/downloadR
 BugReports: https://github.com/RajLabMSSM/downloadR/issues
 Encoding: UTF-8
-LazyData: true
 Depends: R (>= 4.1)
 SystemRequirements: Python (>= 3.7.0)
 biocViews:
 Imports: 
     echoconda, 
     utils, 
-    methods,
-    parallel
+    methods
 Suggests:
     markdown,
     rmarkdown, 
@@ -43,7 +41,7 @@ Suggests:
     badger
 Remotes:
     github::RajLabMSSM/echoconda
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1.9000
 VignetteBuilder: knitr
 License: GPL (>= 3)
 Config/testthat/edition: 3
