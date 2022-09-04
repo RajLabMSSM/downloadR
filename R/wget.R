@@ -20,9 +20,8 @@ wget <- function(input_url,
     # https://stackoverflow.com/questions/21365251/how-to-run-wget-in-background-for-an-unattended-download-of-files
     ## -bqc makes wget run in the background quietly
     dir.create(dirname(output_path), showWarnings = FALSE, recursive = TRUE) 
-    messager("Downloading with axel",paste0("[",1,"thread(s)]:"),"\n",
-             input_url,"==>",output_path,
-             v=verbose) 
+    messager("Downloading with wget",paste0("[",1,"thread]:"),"\n",
+             input_url,"==>",output_path, v=verbose) 
     cmd <- paste(
         wget_path,
         input_url,
