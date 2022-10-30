@@ -18,7 +18,7 @@ axel <- function(input_url,
                  alternate = TRUE,
                  # conda_env=NULL,
                  check_certificates = FALSE,
-                 conda_env = "echoR",
+                 conda_env = "echoR_mini",
                  nThread = 1,
                  verbose = TRUE) { 
     

@@ -11,7 +11,7 @@
 #' @keywords internal
 #' @importFrom echoconda yaml_to_env find_packages
 check_avail <- function(tool,
-                        conda_env = "echoR",
+                        conda_env = "echoR_mini",
                         verbose = TRUE){
     is_avail <- is_installed(tool = tool) 
     if(isTRUE(is_avail)){

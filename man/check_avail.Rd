@@ -4,7 +4,7 @@
 \alias{check_avail}
 \title{Check tool availability}
 \usage{
-check_avail(tool, conda_env = "echoR", verbose = TRUE)
+check_avail(tool, conda_env = "echoR_mini", verbose = TRUE)
 }
 \arguments{
 \item{tool}{Tool name, or full path to tool executable.}

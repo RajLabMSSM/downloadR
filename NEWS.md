@@ -15,6 +15,7 @@
 ## Bug fixes
 
 * Fix GHA: @master --> @v2  
+* Change `conda_env`: "echoR" --> "echoR_mini"
 
 # downloadR 0.99.4
 

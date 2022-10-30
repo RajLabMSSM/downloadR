@@ -14,7 +14,7 @@ wget(
   show_progress = TRUE,
   continue = TRUE,
   check_certificates = FALSE,
-  conda_env = "echoR",
+  conda_env = "echoR_mini",
   verbose = TRUE
 )
 }

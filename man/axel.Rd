@@ -13,7 +13,7 @@ axel(
   quiet = TRUE,
   alternate = TRUE,
   check_certificates = FALSE,
-  conda_env = "echoR",
+  conda_env = "echoR_mini",
   nThread = 1,
   verbose = TRUE
 )

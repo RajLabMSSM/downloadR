@@ -15,7 +15,7 @@ wget <- function(input_url,
                  show_progress = TRUE,
                  continue = TRUE,
                  check_certificates = FALSE,
-                 conda_env = "echoR",
+                 conda_env = "echoR_mini",
                  verbose = TRUE) {
     # https://stackoverflow.com/questions/21365251/how-to-run-wget-in-background-for-an-unattended-download-of-files
     ## -bqc makes wget run in the background quietly
