@@ -19,7 +19,7 @@ downloader(
   alternate = TRUE,
   check_certificates = TRUE,
   timeout = 5 * 60,
-  conda_env = "echoR",
+  conda_env = "echoR_mini",
   nThread = 1,
   verbose = TRUE
 )
@@ -73,6 +73,9 @@ Passed to \code{download.file}. Default: \code{30*60} (30min).}
 }
 \value{
 Local path to downloaded file.
+
+Named vector of files, where the names are the URLs and the values 
+are the paths to the respective local files.
 }
 \description{
 R wrapper for \code{"axel"} (multi-threaded) and
@@ -82,7 +85,7 @@ R wrapper for \code{"axel"} (multi-threaded) and
 input_url <- paste(
     "https://github.com/RajLabMSSM/Fine_Mapping",
     "raw/master/Data/lead.SNP.coords.csv", sep="/")
-out_path <- downloadR::downloader(input_url = input_url)
+output_paths <- downloadR::downloader(input_url = input_url)
 }
 \seealso{
 Other downloaders: 

@@ -1,7 +1,7 @@
 Package: downloadR
 Type: Package
 Title: echoverse module: Single- and multi-threaded downloading functions
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: 
     c(person(given = "Brian",
            family = "Schilder",
@@ -29,7 +29,10 @@ biocViews:
 Imports: 
     echoconda, 
     utils, 
-    methods
+    stats,
+    methods,
+    jsonlite,
+    data.table
 Suggests:
     markdown,
     rmarkdown, 
@@ -38,7 +41,8 @@ Suggests:
     BiocStyle,
     covr,
     testthat (>= 3.0.0),
-    badger
+    badger,
+    zen4R
 Remotes:
     github::RajLabMSSM/echoconda
 RoxygenNote: 7.2.1.9000

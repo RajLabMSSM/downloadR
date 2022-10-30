@@ -1,3 +1,21 @@
+# downloadR 0.99.5
+
+## New features
+
+* Zenodo functions:
+    - `zenodo_list`
+    - `zenodo_upload`
+* Figshare function:
+    - `figshare_links`
+* `downloader`:
+    - Can now takes lists of files
+    - Made subfunction `downloader_one`
+* Passing all CRAN checks locally.  
+
+## Bug fixes
+
+* Fix GHA: @master --> @v2  
+
 # downloadR 0.99.4
 
 ## New features
