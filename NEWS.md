@@ -1,3 +1,9 @@
+# downloadR 0.99.6
+
+## New features
+
+* Add `rworkflows`
+
 # downloadR 0.99.5
 
 ## New features
@@ -15,6 +21,7 @@
 ## Bug fixes
 
 * Fix GHA: @master --> @v2  
+    - Update .gitignore and .Rbuilignore to matcho `echoannot`
 * Change `conda_env`: "echoR" --> "echoR_mini"
 
 # downloadR 0.99.4
