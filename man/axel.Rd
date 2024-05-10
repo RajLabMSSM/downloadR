@@ -50,6 +50,7 @@ R wrapper for axel, which enables multi-threaded download
 \url{https://github.com/axel-download-accelerator/axel/}
 
 Other downloaders: 
+\code{\link{aws}()},
 \code{\link{downloader}()},
 \code{\link{wget}()}
 }

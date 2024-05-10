@@ -22,5 +22,5 @@ instead of a nested list (\code{FALSE}).}
 Download files from a Figshare repository.
 }
 \examples{
-files <- figshare_download(id="14703003", suffix=c(".RDS","cell_Info.txt"))
+files <- figshare_download(id="14703003", suffix="Earthworm_sFig1_cluster_marker.xlsx")
 }

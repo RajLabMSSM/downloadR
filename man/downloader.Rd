@@ -89,6 +89,7 @@ output_paths <- downloadR::downloader(input_url = input_url)
 }
 \seealso{
 Other downloaders: 
+\code{\link{aws}()},
 \code{\link{axel}()},
 \code{\link{wget}()}
 }

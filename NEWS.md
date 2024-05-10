@@ -1,3 +1,9 @@
+# downloadR 0.99.7
+
+## New features
+
+- Add `aws` function
+
 # downloadR 0.99.6
 
 ## New features

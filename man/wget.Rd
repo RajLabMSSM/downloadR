@@ -26,6 +26,7 @@ R wrapper for wget
 }
 \seealso{
 Other downloaders: 
+\code{\link{aws}()},
 \code{\link{axel}()},
 \code{\link{downloader}()}
 }

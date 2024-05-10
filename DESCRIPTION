@@ -1,7 +1,7 @@
 Package: downloadR
 Type: Package
 Title: echoverse module: Single- and multi-threaded downloading functions
-Version: 0.99.6
+Version: 0.99.7
 Authors@R: 
     c(person(given = "Brian",
            family = "Schilder",
@@ -31,7 +31,8 @@ Imports:
     stats,
     methods,
     jsonlite,
-    data.table
+    data.table,
+    aws.s3
 Suggests:
     markdown,
     rmarkdown, 
@@ -44,7 +45,7 @@ Suggests:
     zen4R
 Remotes:
     github::RajLabMSSM/echoconda
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 License: GPL (>= 3)
 Config/testthat/edition: 3
