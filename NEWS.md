@@ -1,3 +1,12 @@
+# downloadR 0.99.8
+
+## New features
+
+* Standardize `rworkflows.yml` with canonical template:
+  enable Docker on `ghcr.io`, set `write-all` permissions,
+  use `GITHUB_TOKEN`, add `devel` branch trigger.
+* Remove tracked `.DS_Store` files.
+
 # downloadR 0.99.7
 
 ## New features
