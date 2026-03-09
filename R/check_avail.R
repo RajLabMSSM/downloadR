@@ -18,18 +18,22 @@ check_avail <- function(tool,
         tool_path <- tool
     } else {
         #### (build and) use conda env ####
-        conda_env <- echoconda::yaml_to_env(yaml_path = conda_env, 
-                                            show_contents = FALSE,
-                                            verbose = verbose)
-        tool_path <- echoconda::find_packages(
-            packages = tool,
-            conda_env = conda_env,
-            return_path = TRUE,
-            verbose = verbose
-        )[[1]][1]
-        if(is.na(tool_path)){
-            tool_path <- NULL
-        }
+        tool_path <- tryCatch({
+            conda_env <- echoconda::yaml_to_env(yaml_path = conda_env,
+                                                show_contents = FALSE,
+                                                verbose = verbose)
+            tp <- echoconda::find_packages(
+                packages = tool,
+                conda_env = conda_env,
+                return_path = TRUE,
+                verbose = verbose
+            )[[1]][1]
+            if(is.na(tp)) NULL else tp
+        }, error = function(e){
+            messager("Could not find", tool, "via conda:",
+                     e$message, v = verbose)
+            NULL
+        })
     } 
     return(tool_path)
 }
