@@ -12,9 +12,11 @@
 #' @export
 #' @importFrom aws.s3 save_object
 #' @examples
+#' \dontrun{
 #' bucket <- "s3://broad-alkesgroup-ukbb-ld/"
 #' input_url <- "UKBB_LD/chr10_135000001_138000001.gz"
 #' out <- aws(input_url = input_url, bucket = bucket)
+#' }
 aws <- function(input_url,
                 output_path=file.path(tempdir(),basename(input_url)),
                 bucket,

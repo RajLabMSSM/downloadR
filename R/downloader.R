@@ -9,7 +9,7 @@
 #' @param output_dir The file directory you want to save the download in.
 #' @param output_path The file name you want to save the download as.
 #' @param download_method 
-#' \itemize{
+#' \describe{
 #' \item{\code{"axel"} : }{Multi-threaded}
 #' \item{\code{"wget"} : }{Single-threaded}
 #' \item{\code{"download.file"} : }{Single-threaded}
@@ -45,10 +45,12 @@
 #' @importFrom methods is 
 #' @importFrom stats setNames
 #' @examples
+#' \dontrun{
 #' input_url <- paste(
 #'     "https://github.com/RajLabMSSM/Fine_Mapping",
 #'     "raw/master/Data/lead.SNP.coords.csv", sep="/")
 #' output_paths <- downloadR::downloader(input_url = input_url)
+#' }
 downloader <- function(input_url,
                        output_dir = tempdir(),
                        output_path = file.path(

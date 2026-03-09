@@ -22,5 +22,7 @@ instead of a nested list (\code{FALSE}).}
 Download files from a Figshare repository.
 }
 \examples{
+\dontrun{
 files <- figshare_download(id="14703003", suffix="Earthworm_sFig1_cluster_marker.xlsx")
+}
 }

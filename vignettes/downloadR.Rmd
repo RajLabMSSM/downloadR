@@ -21,7 +21,7 @@ library(downloadR)
 
 Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).  
 
-```{r}
+```{r, eval=FALSE}
 input_url <- "https://github.com/RajLabMSSM/Fine_Mapping/raw/master/Data/lead.SNP.coords.csv"
 out_path <- downloadR::downloader(input_url = input_url,
                                   download_method = "axel",
@@ -33,7 +33,7 @@ knitr::kable(head(csv))
 
 ## Single-threaded
 
-```{r}
+```{r, eval=FALSE}
 out_path <- downloadR::downloader(input_url = input_url,
                                   download_method = "wget",
                                   force_overwrite = TRUE)
@@ -45,7 +45,7 @@ csv <- utils::read.csv(out_path)
 
 More specialized downloading function for Variant Call Format (VCF) files that downloads both the VCF and its index file (if available).
 
-```{r}
+```{r, eval=FALSE}
 vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
 out_paths <- downloadR::download_vcf(vcf_url = vcf_url) 
 ```
@@ -53,7 +53,7 @@ out_paths <- downloadR::download_vcf(vcf_url = vcf_url)
 
 `load_rdata` is a convenience function that can read *.rda/.rda/.rdata* or *.rds* files from a local or remote location.
 
-```{r}
+```{r, eval=FALSE}
 fileName <- paste0("https://github.com/RajLabMSSM/",
                    "Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
 dat <- load_rdata(fileName) 

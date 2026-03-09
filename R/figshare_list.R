@@ -13,8 +13,10 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom stats setNames
 #' @importFrom data.table data.table
-#' @examples 
+#' @examples
+#' \dontrun{
 #' files <- figshare_list(id="14703003", suffix=c(".RDS","cell_Info.txt"))
+#' }
 figshare_list <- function(id,
                           suffix=NULL,
                           as_datatable=TRUE,

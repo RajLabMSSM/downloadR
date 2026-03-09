@@ -1,5 +1,11 @@
 test_that("downloader works", {
-    
+
+    testthat::skip_on_cran()
+    testthat::skip_if_not(
+        echoconda::env_exists(conda_env = "echoR_mini"),
+        message = "echoR_mini conda env not available"
+    )
+
     input_url <- paste(
         "https://github.com/RajLabMSSM/Fine_Mapping",
         "raw/master/Data/lead.SNP.coords.csv", sep="/")

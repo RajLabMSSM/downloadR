@@ -15,7 +15,7 @@ load_rdata(fileName, ...)
     \item{\code{input_url}}{URL to remote file.}
     \item{\code{output_dir}}{The file directory you want to save the download in.}
     \item{\code{output_path}}{The file name you want to save the download as.}
-    \item{\code{download_method}}{\itemize{
+    \item{\code{download_method}}{\describe{
 \item{\code{"axel"} : }{Multi-threaded}
 \item{\code{"wget"} : }{Single-threaded}
 \item{\code{"download.file"} : }{Single-threaded}
@@ -55,7 +55,9 @@ If a \emph{.rda} file is remote and , it will first be downloaded using
 \link[downloadR]{downloader}.
 }
 \examples{
+\dontrun{
 fileName <- paste0("https://github.com/RajLabMSSM/",
 "Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
 dat <- load_rdata(fileName)
+}
 }

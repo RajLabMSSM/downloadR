@@ -3,8 +3,10 @@
 #' Download files from a Figshare repository. 
 #' @inheritParams figshare_list
 #' @export 
-#' @examples 
+#' @examples
+#' \dontrun{
 #' files <- figshare_download(id="14703003", suffix="Earthworm_sFig1_cluster_marker.xlsx")
+#' }
 figshare_download <- function(id,
                               suffix=NULL,
                               as_datatable=TRUE,

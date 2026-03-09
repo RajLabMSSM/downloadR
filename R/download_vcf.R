@@ -10,8 +10,10 @@
 #' 
 #' @export
 #' @examples
+#' \dontrun{
 #' vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
 #' out_paths <- download_vcf(vcf_url = vcf_url)
+#' }
 download_vcf <- function(vcf_url,
                          vcf_dir = tempdir(),
                          download_method = "download.file",

@@ -18,7 +18,7 @@ download_vcf(
 
 \item{vcf_dir}{Where to download VCF file.}
 
-\item{download_method}{\itemize{
+\item{download_method}{\describe{
 \item{\code{"axel"} : }{Multi-threaded}
 \item{\code{"wget"} : }{Single-threaded}
 \item{\code{"download.file"} : }{Single-threaded}
@@ -46,6 +46,8 @@ List containing the paths to the downloaded VCF and its index file.
 Download a remote VCF file and its index file
 }
 \examples{
+\dontrun{
 vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
 out_paths <- download_vcf(vcf_url = vcf_url)
+}
 }

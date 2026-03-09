@@ -31,7 +31,7 @@ downloader(
 
 \item{output_path}{The file name you want to save the download as.}
 
-\item{download_method}{\itemize{
+\item{download_method}{\describe{
 \item{\code{"axel"} : }{Multi-threaded}
 \item{\code{"wget"} : }{Single-threaded}
 \item{\code{"download.file"} : }{Single-threaded}
@@ -82,10 +82,12 @@ R wrapper for \code{"axel"} (multi-threaded) and
  \code{"download.file"} (single-threaded) download functions.
 }
 \examples{
+\dontrun{
 input_url <- paste(
     "https://github.com/RajLabMSSM/Fine_Mapping",
     "raw/master/Data/lead.SNP.coords.csv", sep="/")
 output_paths <- downloadR::downloader(input_url = input_url)
+}
 }
 \seealso{
 Other downloaders: 

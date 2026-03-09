@@ -22,5 +22,7 @@ instead of a nested list (\code{FALSE}).}
 List links to all downloadable files within a Figshare repository.
 }
 \examples{
+\dontrun{
 files <- figshare_list(id="14703003", suffix=c(".RDS","cell_Info.txt"))
+}
 }

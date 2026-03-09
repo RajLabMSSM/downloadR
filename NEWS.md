@@ -1,3 +1,8 @@
+# downloadR 0.99.9
+
+## Bug fixes
+* Local R CMD check fixes and compatibility updates.
+
 # downloadR 0.99.8
 
 ## New features

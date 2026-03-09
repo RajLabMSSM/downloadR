@@ -40,9 +40,11 @@ Path where the file has been downloaded
 AWS S3 bucket downloader.
 }
 \examples{
+\dontrun{
 bucket <- "s3://broad-alkesgroup-ukbb-ld/"
 input_url <- "UKBB_LD/chr10_135000001_138000001.gz"
 out <- aws(input_url = input_url, bucket = bucket)
+}
 }
 \seealso{
 \url{https://blog.djnavarro.net/posts/2022-03-17_using-aws-s3-in-r/}

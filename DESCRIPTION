@@ -1,7 +1,8 @@
 Package: downloadR
 Type: Package
-Title: echoverse module: Single- and multi-threaded downloading functions
-Version: 0.99.8
+Title: Echoverse Module: Single- and Multi-Threaded Downloading Functions
+Version: 0.99.9
+Date: 2026-03-08
 Authors@R: 
     c(person(given = "Brian",
            family = "Schilder",
@@ -19,7 +20,7 @@ Authors@R:
            email = "towfique.raj@mssm.edu",
            comment = c(ORCID = "0000-0002-9355-5704"))
            ) 
-Description: echoverse module: Single- and multi-threaded downloading functions.
+Description: Echoverse module: Single- and multi-threaded downloading functions.
 URL: https://github.com/RajLabMSSM/downloadR
 BugReports: https://github.com/RajLabMSSM/downloadR/issues
 Encoding: UTF-8
@@ -45,7 +46,7 @@ Suggests:
     zen4R
 Remotes:
     github::RajLabMSSM/echoconda
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 License: GPL (>= 3)
 Config/testthat/edition: 3
