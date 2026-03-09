@@ -1,7 +1,7 @@
 Package: downloadR
 Type: Package
 Title: Echoverse Module: Single- and Multi-Threaded Downloading Functions
-Version: 0.99.9
+Version: 1.99.9
 Date: 2026-03-08
 Authors@R: 
     c(person(given = "Brian",
