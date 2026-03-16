@@ -36,11 +36,12 @@ Imports:
     aws.s3
 Suggests:
     markdown,
-    rmarkdown, 
+    rmarkdown,
     remotes,
     knitr,
     BiocStyle,
     covr,
+    curl,
     testthat (>= 3.0.0),
     badger,
     zen4R

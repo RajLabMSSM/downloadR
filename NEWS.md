@@ -1,3 +1,11 @@
+# downloadR 1.0.0
+
+## Bug fixes
+
+* Gracefully handle conda env creation failure in `check_avail`.
+* Fix Rd formatting and `\dontrun{}` example guards.
+* Add `Rplots.pdf` and `*.tbi` to `.gitignore`.
+
 # downloadR 0.99.9
 
 ## Bug fixes

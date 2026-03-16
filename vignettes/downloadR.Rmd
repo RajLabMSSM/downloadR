@@ -1,31 +1,47 @@
 ---
-title: "Getting Started" 
-author: "<h4>Authors: <i>`r auths <- eval(parse(text = gsub('person','c',read.dcf('../DESCRIPTION', fields = 'Authors@R'))));paste(auths[names(auths)=='given'],auths[names(auths)=='family'], collapse = ', ')`</i></h4>" 
+title: "Getting Started"
+author: "<h4>Authors: <i>`r auths <- eval(parse(text = gsub('person','c',read.dcf('../DESCRIPTION', fields = 'Authors@R'))));paste(auths[names(auths)=='given'],auths[names(auths)=='family'], collapse = ', ')`</i></h4>"
 date: "<h4>Vignette updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
   BiocStyle::html_document
 vignette: >
-    %\VignetteIndexEntry{templateR} 
+    %\VignetteIndexEntry{downloadR}
     %\usepackage[utf8]{inputenc}
     %\VignetteEngine{knitr::rmarkdown}
 ---
 
-```{r setup}
-library(downloadR) 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
 
+```{r}
+library(downloadR)
+```
 
-# Download file
+# Introduction
 
-## Multi-threaded  
+`downloadR` is an echoverse module that provides single- and multi-threaded
+downloading functions for R. It wraps several download backends including
+[axel](https://github.com/axel-download-accelerator/axel) (multi-threaded),
+`wget`, and R's built-in `download.file`. It also provides convenience
+functions for working with AWS S3, Figshare, and Zenodo repositories.
 
-Generic function for downloading files with a variety of methods, including multi-threaded downloading of a single file with [`axel`](https://github.com/axel-download-accelerator/axel).  
+# Download files
 
-```{r, eval=FALSE}
-input_url <- "https://github.com/RajLabMSSM/Fine_Mapping/raw/master/Data/lead.SNP.coords.csv"
+## Multi-threaded
+
+The core function `downloader()` supports a variety of download backends.
+For multi-threaded downloads of a single file, use the `axel` method.
+
+```{r multi-threaded, eval = curl::has_internet()}
+input_url <- paste(
+    "https://github.com/RajLabMSSM/Fine_Mapping",
+    "raw/master/Data/lead.SNP.coords.csv", sep = "/")
 out_path <- downloadR::downloader(input_url = input_url,
-                                  download_method = "axel",
-                                  ### Set nThread >1 in practice 
+                                  download_method = "download.file",
                                   nThread = 1)
 csv <- utils::read.csv(out_path)
 knitr::kable(head(csv))
@@ -33,41 +49,109 @@ knitr::kable(head(csv))
 
 ## Single-threaded
 
-```{r, eval=FALSE}
-out_path <- downloadR::downloader(input_url = input_url,
-                                  download_method = "wget",
-                                  force_overwrite = TRUE)
-csv <- utils::read.csv(out_path) 
-```
+For single-threaded downloads, you can use `wget` or `download.file`.
 
+```{r single-threaded, eval = curl::has_internet()}
+out_path2 <- downloadR::downloader(input_url = input_url,
+                                   download_method = "download.file",
+                                   force_overwrite = TRUE)
+```
 
 # Download VCF
 
-More specialized downloading function for Variant Call Format (VCF) files that downloads both the VCF and its index file (if available).
+`download_vcf()` is a specialised function for downloading Variant Call Format
+(VCF) files. It automatically attempts to download both the VCF and its
+tabix index file (`.tbi`), if available.
 
-```{r, eval=FALSE}
+```{r download-vcf, eval = FALSE}
 vcf_url <- "https://gwas.mrcieu.ac.uk/files/ieu-a-298/ieu-a-298.vcf.gz"
-out_paths <- downloadR::download_vcf(vcf_url = vcf_url) 
+out_paths <- downloadR::download_vcf(vcf_url = vcf_url)
 ```
+
 # Load R data
 
-`load_rdata` is a convenience function that can read *.rda/.rda/.rdata* or *.rds* files from a local or remote location.
+`load_rdata()` is a convenience function that can read `.rda`, `.rdata`,
+or `.rds` files from either a local or remote path. Remote files are
+downloaded automatically before loading.
 
-```{r, eval=FALSE}
-fileName <- paste0("https://github.com/RajLabMSSM/",
-                   "Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
-dat <- load_rdata(fileName) 
+```{r load-rdata, eval = curl::has_internet()}
+fileName <- paste0(
+    "https://github.com/RajLabMSSM/",
+    "Fine_Mapping_Shiny/raw/master/www/BST1.finemap_DT.RDS")
+dat <- downloadR::load_rdata(fileName)
+knitr::kable(head(dat, 3))
 ```
 
+# AWS S3
 
-# Session Info 
+The `aws()` function downloads files from Amazon S3 buckets using the
+`aws.s3` package.
 
-<details> 
+```{r aws, eval = FALSE}
+bucket <- "s3://broad-alkesgroup-ukbb-ld/"
+input_url <- "UKBB_LD/chr10_135000001_138000001.gz"
+out <- downloadR::aws(input_url = input_url, bucket = bucket)
+```
+
+# Figshare
+
+## List files
+
+`figshare_list()` queries the Figshare API to list all downloadable files
+in a repository.
+
+```{r figshare-list, eval = curl::has_internet()}
+files <- downloadR::figshare_list(id = "14703003")
+knitr::kable(files[, c("name", "size")])
+```
+
+## Download files
+
+`figshare_download()` combines listing and downloading into one step.
+
+```{r figshare-download, eval = FALSE}
+files <- downloadR::figshare_download(
+    id = "14703003",
+    suffix = "Earthworm_sFig1_cluster_marker.xlsx")
+```
+
+# Zenodo
+
+## List files
+
+`zenodo_list()` retrieves metadata for all files in a Zenodo record.
+Requires a Zenodo personal access token (set via the `zenodo_token`
+environment variable or passed directly).
+
+```{r zenodo-list, eval = FALSE}
+zen_dat <- downloadR::zenodo_list(
+    token = "<your-token>",
+    concept_doi = "10.5281/zenodo.7062237")
+```
+
+## Upload files
+
+`zenodo_upload()` creates a new Zenodo record, uploads files, and publishes.
+
+```{r zenodo-upload, eval = FALSE}
+files <- sapply(seq_len(3), function(i) {
+    tmp <- tempfile(fileext = ".txt")
+    writeLines(letters, tmp)
+    return(tmp)
+})
+zout <- downloadR::zenodo_upload(
+    files = files,
+    title = "test_repo")
+```
+
+# Session Info
+
+<details>
 
 ```{r Session Info}
 utils::sessionInfo()
 ```
 
-</details>  
+</details>
 
 <br>
